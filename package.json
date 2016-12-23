@@ -1,0 +1,19 @@
+{
+  "name": "tdd-slides",
+  "version": "1.0.0",
+  "description": "Slides which I have used to present TDD in my software engineering course",
+  "scripts": {
+    "serve": "prez --serve --watch",
+    "build": "prez",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArmanMazdaee/tdd-slides"
+  },
+  "author": "Arman Mazdaee",
+  "license": "MIT",
+  "devDependencies": {
+    "prez": "^4.7.0"
+  }
+}
