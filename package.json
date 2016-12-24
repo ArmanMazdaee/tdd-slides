@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Slides which I have used to present TDD in my software engineering course",
   "scripts": {
-    "serve": "prez --serve --watch",
+    "serve": "prez --serve --watch --highlight-theme=solarized-dark",
     "build": "prez",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
