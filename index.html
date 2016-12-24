@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>tdd-slides</title>
+
+    <meta name="description" content="Slides which I have used to present TDD in my software engineering course">
+    <meta name="author" content="Arman Mazdaee">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="css/highlight/styles/zenburn.css" id="highlight-theme">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <link rel="stylesheet" href="css/custom.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides"><section id="cover" class="slide" data-has-notes="false">
+<h2>آشنایی با TDD</h2><p>آرمان مزدائی</p>
+</section>
+
+<section id="chapter-unit-test" class="chapter">
+<section id="unit-test-unit-test" class="slide" data-has-notes="false">
+<h2>آزمایش واحد</h2><p>یک روش آزمایش، برای آزمودن واحدهای کوچکی از برنامه</p>
+</section>
+
+<section id="unit-test-example" class="slide" data-has-notes="false">
+<h2>یک مثال</h2><pre><code>import unittest
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestStringMethods</span>(<span class="hljs-title">unittest</span>.<span class="hljs-title">TestCase</span>):</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_isupper</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span>:
+        <span class="hljs-keyword">self</span>.assertTrue(<span class="hljs-string">'FOO'</span>.isupper())
+        <span class="hljs-keyword">self</span>.assertFalse(<span class="hljs-string">'Foo'</span>.isupper())
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_split</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span>:
+        s = <span class="hljs-string">'hello world'</span>
+        <span class="hljs-keyword">self</span>.assertEqual(s.split(), [<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>])
+        <span class="hljs-comment"># check that s.split fails when the separator is not a string</span>
+        with <span class="hljs-keyword">self</span>.assertRaises(TypeError):
+            s.split(<span class="hljs-number">2</span>)
+
+<span class="hljs-keyword">if</span> __name_<span class="hljs-number">_</span> == <span class="hljs-string">'__main__'</span>:
+    unittest.main()
+</code></pre>
+</section>
+
+<section id="unit-test-pros" class="slide" data-has-notes="false">
+<h2>مزایا</h2><ul>
+<li><p>زودتر پیدا شدن مشکلات</p>
+</li>
+<li><p>آسان‌تر کردن تغییرات آتی</p>
+</li>
+<li><p>خواناتر شدن کد</p>
+</li>
+</ul>
+</section>
+
+<section id="unit-test-cons" class="slide" data-has-notes="false">
+<h2>معایب</h2><ul>
+<li><p>غیر واقعی بودن</p>
+</li>
+<li><p>چک نکردن ارتباط با سایر بخش‌ها</p>
+</li>
+<li><p>پوشش ندادن همه حالات</p>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-tdd" class="chapter">
+<section id="tdd-tdd" class="slide" data-has-notes="false">
+<h2>TDD</h2><ul>
+<li><p>یک نوع متولوژی توسعه نرم‌افزار هست</p>
+</li>
+<li><p>توسط کنت بک به صورت رسمی در ۲۰۰۳ معرفی شد</p>
+</li>
+<li><p>جزئی از برنامه‌سازی مفرط هست</p>
+</li>
+</ul>
+</section>
+
+<section id="tdd-steps" class="slide" data-has-notes="false">
+<h2>مراحل</h2><p><img src="images/tdd-circle-of-life.png" alt=""></p>
+</section>
+
+<section id="tdd-pitfalls" class="slide" data-has-notes="false">
+<h2>اشتباهات رایج</h2><ul>
+<li><p>نوشتن تعداد زیادی آزمایش در هر مرحله</p>
+</li>
+<li><p>نوشتن آزمایش‌های بزرگ</p>
+</li>
+<li><p>نوشتن کدی که کاری بجز آزمایش طرح شده می‌کنند</p>
+</li>
+</ul>
+</section>
+
+<section id="tdd-pros" class="slide" data-has-notes="false">
+<h2>مزایا</h2><ul>
+<li><p>افزایش بازده برنامه‌نویس</p>
+</li>
+<li><p>آسان کردن رفع ایرادات برنامه</p>
+</li>
+<li><p>بالابردن کیفیت کد</p>
+</li>
+<li><p>بالابردن خوانایی کد</p>
+</li>
+<li><p>بهبود طراحی برنامه</p>
+</li>
+</ul>
+</section>
+
+<section id="tdd-cons" class="slide" data-has-notes="false">
+<h2>معایب</h2><ul>
+<li><p>افزایش زمان تولید در ابتدا</p>
+</li>
+<li><p>نیاز به مهارت</p>
+</li>
+<li><p>چک نکردن ارتباط بخش‌های مختلف</p>
+</li>
+</ul>
+</section>
+
+<section id="tdd-tools" class="slide" data-has-notes="false">
+<h2>ابزارها</h2><ul>
+<li><p>کتابخانه‌های آزمایش واحد</p>
+</li>
+<li><p>اجراکننده آزمایش‌ها</p>
+</li>
+<li><p>کتابخانه‌های تقلد کننده</p>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-example" class="chapter">
+<section id="example-example" class="slide" data-has-notes="false">
+<h2>یک مثال ساده</h2><p>ساخت کلاسی به اسم Inventor که خصوصتی به نام invention دارد.</p>
+</section>
+
+<section id="example-first-test" class="slide" data-has-notes="false">
+<h2>اولین آزمایش</h2><pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestInventor</span>(<span class="hljs-title">unittest</span>.<span class="hljs-title">TestCase</span>):</span>
+   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_init</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span>:
+       kent = inventor.Inventor(<span class="hljs-string">'TDD'</span>)
+</code></pre><pre><code><span class="hljs-section">E
+======================================================================</span>
+<span class="hljs-section">ERROR: test_init (__main__.TestInventor)
+----------------------------------------------------------------------</span>
+Traceback (most recent call last):
+<span class="hljs-code">  File "inventor_test.py", line 7, in test_init</span>
+<span class="hljs-code">    kent = inventor.Inventor('TDD')</span>
+AttributeError: <span class="hljs-emphasis">'module'</span> object has no attribute <span class="hljs-emphasis">'Inventor'</span>
+
+<span class="hljs-code">----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)</span>
+</code></pre>
+</section>
+
+<section id="example-add-class" class="slide" data-has-notes="false">
+<h2>اضافه کردن کلاس</h2><pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inventor</span>:
+    <span class="hljs-type">pass</span></span>
+</code></pre><pre><code><span class="hljs-section">E
+======================================================================</span>
+<span class="hljs-section">ERROR: test_init (__main__.TestInventor)
+----------------------------------------------------------------------</span>
+Traceback (most recent call last):
+<span class="hljs-code">  File "inventor_test.py", line 7, in test_init</span>
+<span class="hljs-code">    kent = inventor.Inventor('TDD')</span>
+TypeError: this constructor takes no arguments
+
+<span class="hljs-code">----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)</span>
+</code></pre>
+</section>
+
+<section id="example-fix-init" class="slide" data-has-notes="false">
+<h2>اضافه کردن سازنده</h2><pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inventor</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, invention)</span></span>:
+        pass
+</code></pre><pre><code><span class="hljs-section">.
+----------------------------------------------------------------------</span>
+Ran 1 test in 0.000s
+
+OK
+</code></pre>
+</section>
+
+<section id="example-test-invention" class="slide" data-has-notes="false">
+<h2>آزمودن invention</h2><pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestInventor</span>(<span class="hljs-title">unittest</span>.<span class="hljs-title">TestCase</span>):</span>
+
+   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_invention</span><span class="hljs-params">(<span class="hljs-keyword">self</span>)</span></span>:
+       expected_invation = <span class="hljs-string">'TDD'</span>
+       kent = inventor.Inventor(expected_invation)
+       current_invation = kent.invention
+       <span class="hljs-keyword">self</span>.assertEqual(expected_invation, current_invation)
+</code></pre><pre><code>.E
+======================================================================
+ERROR: test_invention (__main__.TestInventor)
+<span class="hljs-comment">----------------------------------------------------------------------</span>
+Traceback (most recent <span class="hljs-keyword">call</span> <span class="hljs-keyword">last</span>):
+  <span class="hljs-keyword">File</span> <span class="hljs-string">"inventor_test.py"</span>, line <span class="hljs-number">12</span>, <span class="hljs-keyword">in</span> test_invention
+    current_invation = kent.invention
+AttributeError: Inventor <span class="hljs-keyword">instance</span> has <span class="hljs-keyword">no</span> <span class="hljs-keyword">attribute</span> <span class="hljs-string">'invention'</span>
+
+<span class="hljs-comment">----------------------------------------------------------------------</span>
+Ran <span class="hljs-number">2</span> tests <span class="hljs-keyword">in</span> <span class="hljs-number">0.000</span>s
+
+<span class="hljs-keyword">FAILED</span> (<span class="hljs-keyword">errors</span>=<span class="hljs-number">1</span>)
+</code></pre>
+</section>
+
+<section id="example-fix-invention" class="slide" data-has-notes="false">
+<h2>افزودن invention</h2><pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inventor</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(<span class="hljs-keyword">self</span>, invention)</span></span>:
+        <span class="hljs-keyword">self</span>.invention = invention
+</code></pre><pre><code><span class="hljs-section">..
+----------------------------------------------------------------------</span>
+Ran 2 tests in 0.000s
+
+OK
+</code></pre>
+</section>
+</section>
+
+<section id="chapter-bdd" class="chapter">
+<section id="bdd-bdd" class="slide" data-has-notes="false">
+<h2>BDD</h2><ul>
+<li><p>استفاده از آزمایش پذیرش</p>
+</li>
+<li><p>معمولا استفاده از زبان مخصوص</p>
+</li>
+</ul>
+</section>
+
+<section id="bdd-pros" class="slide" data-has-notes="false">
+<h2>مزایا نست به TDD</h2><ul>
+<li><p>آزمایش ارتباط بخش‌های مختلف با هم</p>
+</li>
+<li><p>امکان نوشتن آزمایش توسط افراد غیر برنامه‌نویس</p>
+</li>
+<li><p>مستقل بودن از طراحی کد</p>
+</li>
+</ul>
+</section>
+
+<section id="bdd-cons" class="slide" data-has-notes="false">
+<h2>معایب نسبت به TDD</h2><ul>
+<li><p>مستقل بودن از طراحی کد</p>
+</li>
+<li><p>معمولا زمان‌تر بودن اجرای کدها</p>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="questions" class="slide" data-has-notes="false">
+<h2>سوال؟!</h2>
+</section></div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: Reveal.getQueryHash().transition || 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [
+        //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+    </script>
+
+    <script src="js/dynamic-theme.js"></script><script src="js/custom.js"></script>
+
+  </body>
+</html>
